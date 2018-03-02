@@ -9,11 +9,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Document
-public class Question {
+@ToString
+public class Question extends AbstractModel<Question> {
+
+	private static final long serialVersionUID = 1098203100036339444L;
 
 	@Id
 	ObjectId id;
@@ -21,5 +25,10 @@ public class Question {
 	List<Response> responses;
 	@Indexed
 	List<Tag> tags;
+
+	@Override
+	public int compareTo(Question o) {
+		return statement.getText().compareTo(o.getStatement().getText());
+	}
 
 }
