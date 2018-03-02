@@ -9,4 +9,5 @@ public class QuizBackApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(QuizBackApplication.class, args);
 	}
+	
 }
