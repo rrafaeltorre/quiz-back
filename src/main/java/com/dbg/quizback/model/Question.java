@@ -20,11 +20,14 @@ public class Question extends AbstractModel<Question> {
 	private static final long serialVersionUID = 1098203100036339444L;
 
 	@Id
-	ObjectId id;
-	Statement statement;
-	List<Response> responses;
+	protected ObjectId id;
+
+	protected Statement statement;
+
+	protected List<Response> responses;
+
 	@Indexed
-	List<Tag> tags;
+	protected List<Tag> tags;
 
 	@Override
 	public int compareTo(Question o) {
