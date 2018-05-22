@@ -1,34 +1,48 @@
 package com.dbg.quizback.service;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.dbg.quizback.dao.UserDAO;
 import com.dbg.quizback.model.User;
 
 @Service
-public class UserServiceImpl implements UserService, InitializingBean {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDAO dao;
+	UserDAO userDao;
 
 	@Override
-	public void test() {
-		final User u = new User();
-		u.setEmail("asd@g.com");
-		u.setName("Pepe 1");
-		u.setPassword("pepe123");
-		dao.save(u);
-		final Optional<User> user = dao.findOneByNameOrderByIdUserDesc("Pepe 2");
-		System.out.println(user.isPresent() ? user.get() : "no encontrado");
+	public User create(User t) {
+		return userDao.save(t);
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		test();
+	public void update(User t) {
+		userDao.save(t);
+	}
+
+	@Override
+	public Optional<User> findById(Integer id) {
+		return userDao.findById(id);
+	}
+
+	@Override
+	public Set<User> findAll(Pageable p) {
+		int page = p.getPageNumber();
+		int size = p.getPageSize();
+		return userDao.findAll(PageRequest.of(page, size)).stream().collect(Collectors.toSet());
+	}
+
+	@Override
+	public void delete(User t) {
+		userDao.delete(t);
 	}
 
 }

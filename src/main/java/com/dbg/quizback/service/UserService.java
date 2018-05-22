@@ -1,7 +1,7 @@
 package com.dbg.quizback.service;
 
-public interface UserService {
+import com.dbg.quizback.model.User;
 
-	void test();
+public interface UserService extends AbstractCRUDService<User, Integer> {
 
 }
